@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+.navbar {
+  height: 93.4vh;
+}
+.logo {
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+}
+.paylogo {
+  color: #34c3ff;
+}
+.input:not(:last-child) {
+  margin-bottom: 10px;
+}
+.signup-message,
+.signup-message-link {
+  font-size: 17px;
+}
+.signup-message {
+  margin-top: 10px;
+  color: white;
+}
+.table {
+  font-size: 13px;
+  color: aliceblue;
+}
+.load {
+  color: aliceblue;
+}
+.landingpage {
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+.quote {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+}
+.landing-logo,
+.quote {
+  /** TEXT GRADIENT */
+  color: #0f8dbf;
+  background-image: -webkit-linear-gradient(45deg, #0f8dbf 35%, #030d24 60%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.landing-logo {
+  font-size: 60px;
+  font-weight: 800;
+  text-align: center;
+}
+.login-button {
+  border-radius: 30px;
+  width: 130px;
+  height: 50px;
+  font-size: 25px;
+  font-weight: 600;
+}
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
