@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase.config";
+import TableGrid from "../components/TableGrid";
 
 const DashBoard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const authState = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -20,9 +20,6 @@ const DashBoard = () => {
   useEffect(() => {
     authState();
   }, []);
-  const currentUser = useSelector(
-    (state) => state?.auth?.userAuth?.user?.email
-  );
 
   return (
     <>

@@ -1,24 +1,32 @@
-import { Sidenav, Nav, Sidebar, Container } from "rsuite";
-import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
-import GroupIcon from "@rsuite/icons/legacy/Group";
-import MagicIcon from "@rsuite/icons/legacy/Magic";
-import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import CharacterAuthorizeIcon from "@rsuite/icons/CharacterAuthorize";
-import React from "react";
-import { IoMdHome } from "react-icons/io";
-import MemberIcon from "@rsuite/icons/Member";
-import LoginModal from "./LoginModal";
-import Layout from "./Content";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase.config";
+import { USER_LOGOUT } from "../redux/actions";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Layout from "./Content";
+import LoginModal from "./LoginModal";
+import { auth } from "../../firebase.config";
 import Brand from "./Brand";
-import { USER_LOGOUT } from "../redux/actions";
-const NavBar = () => {
+
+const drawerWidth = 240;
+
+export default function NavBar() {
   const [open, setOpen] = React.useState(false);
-  const [backdrop, setBackdrop] = React.useState("static");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [expand, setExpand] = React.useState(true);
@@ -41,60 +49,90 @@ const NavBar = () => {
     auth: { userAuth },
   } = useSelector((state) => state);
   console.log(userAuth);
+
   return (
-    <Container>
-      <Sidebar
-        style={{ display: "flex", flexDirection: "column" }}
-        width={expand ? 260 : 56}
-        collapsible
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        sx={{
+          bgcolor: "black",
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
+        }}
       >
-        <Sidenav>
-          <Sidenav.Header>
-            <Brand />
-          </Sidenav.Header>
-          <Sidenav.Body>
-            <Nav activeKey="1" className="navbar">
-              <Nav.Item
-                onClick={() => navigate("/dashboard")}
-                icon={<DashboardIcon />}
-              >
-                Dashboard
-              </Nav.Item>
+        <Brand />
+      </AppBar>
 
-              <Nav.Menu title="Profile" icon={<MemberIcon />}>
-                {userAuth ? (
-                  <>
-                    <Nav.Item>Account</Nav.Item>
-                    <Nav.Item>Settings</Nav.Item>
-                    <Nav.Item
-                      as={"button"}
-                      style={{
-                        fontWeight: 500,
-                        fontSize: "14px",
-                        color: "white",
-                        backgroundColor: "#D70040",
-                        textAlign: "left",
-                      }}
-                      onClick={() => handleLogOut()}
-                    >
-                      Logout
-                    </Nav.Item>
-                  </>
-                ) : (
-                  <Nav.Item onClick={handleOpen} eventKey="3-1">
-                    Login/Signup
-                  </Nav.Item>
-                )}
-              </Nav.Menu>
-            </Nav>
-          </Sidenav.Body>
-        </Sidenav>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
 
-        <LoginModal open={open} backdrop={backdrop} handleClose={handleClose} />
-      </Sidebar>
+        <Divider />
+        <List>
+          {/* {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))} */}
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("statistics")}>
+              <ListItemText>Statistics</ListItemText>
+            </ListItemButton>
+          </ListItem>
+
+          {userAuth ? (
+            <>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => navigate("account")}>
+                  <ListItemText>Account</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => handleLogOut()}>
+                  <ListItemText>Logout</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </>
+          ) : (
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleOpen}>
+                <ListItemText>Login/Signup</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          )}
+        </List>
+        {/* <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List> */}
+      </Drawer>
       <Layout />
-    </Container>
+      <LoginModal open={open} handleClose={handleClose} />
+    </Box>
   );
-};
-
-export default NavBar;
+}

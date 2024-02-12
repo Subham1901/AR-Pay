@@ -12,10 +12,12 @@ import {
   createBrowserRouter,
   useNavigate,
 } from "react-router-dom";
-import Home from "./pages/Home";
 import DashBoard from "./pages/DashBoard";
 import LandingPage from "./pages/LandingPage";
 import Protected from "./components/Protected";
+import Account from "./pages/Account";
+import Statistics from "./pages/Statistics";
+import LoginModal from "./components/LoginModal";
 
 const App = () => {
   const load = useSelector((state) => state.action?.loading);
@@ -26,6 +28,7 @@ const App = () => {
   return (
     <div>
       <LandingPage />
+      <LoginModal />
     </div>
   );
 };
@@ -41,6 +44,16 @@ export const browserRouter = createBrowserRouter([
         <DashBoard />
       </Protected>
     ),
+    children: [
+      {
+        path: "statistics",
+        element: <Statistics />,
+      },
+      {
+        path: "account",
+        element: <Account />,
+      },
+    ],
   },
 ]);
 export default App;

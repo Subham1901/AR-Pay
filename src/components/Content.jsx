@@ -1,12 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import Home from "../pages/Home";
+import { Outlet, useLocation } from "react-router-dom";
+import TableGrid from "./TableGrid";
+import { Box, Toolbar } from "@mui/material";
 
 const Layout = () => {
+  const { pathname } = useLocation();
   return (
-    <>
-      <Outlet />
-    </>
+    <Box>
+      <Toolbar />
+      {pathname === "/dashboard" ? <TableGrid /> : <Outlet />}
+    </Box>
   );
 };
 

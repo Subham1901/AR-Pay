@@ -1,32 +1,52 @@
 import React from "react";
 import wave from "../assets/wave.png";
 import Brand from "../components/Brand";
-import { Button } from "rsuite";
 import LoginModal from "../components/LoginModal";
+import { useDecodeToken } from "../utils/util";
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { USER_LOGOUT } from "../redux/actions";
+import { toast } from "react-toastify";
+import { auth } from "../../firebase.config";
+import { useDispatch } from "react-redux";
+import { Button } from "@mui/material";
 const LandingPage = () => {
   const [open, setOpen] = React.useState(false);
   const [backdrop, setBackdrop] = React.useState("static");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const email = useDecodeToken();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: USER_LOGOUT });
+      navigate("/");
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
   return (
     <div className="landingpage">
       <svg
         id="wave"
         style={{ transform: "rotate(180deg)", transition: "0.3s" }}
-        viewBox="0 0 1440 400"
+        viewBox="0 0 1440 300"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
           <linearGradient id="sw-gradient-0" x1={0} x2={0} y1={1} y2={0}>
-            <stop stopColor="rgba(11.403, 12.934, 98.222, 1)" offset="0%" />
-            <stop stopColor="rgba(74.723, 11.957, 98.222, 1)" offset="100%" />
+            <stop stopColor="rgba(30.391, 18.19, 66.347, 1)" offset="0%" />
+            <stop stopColor="rgba(97.978, 43.94, 111.883, 1)" offset="100%" />
           </linearGradient>
         </defs>
         <path
           style={{ transform: "translate(0, 0px)", opacity: 1 }}
           fill="url(#sw-gradient-0)"
-          d="M0,120L24,160C48,200,96,280,144,273.3C192,267,240,173,288,140C336,107,384,133,432,160C480,187,528,213,576,240C624,267,672,293,720,286.7C768,280,816,240,864,193.3C912,147,960,93,1008,100C1056,107,1104,173,1152,226.7C1200,280,1248,320,1296,306.7C1344,293,1392,227,1440,186.7C1488,147,1536,133,1584,120C1632,107,1680,93,1728,113.3C1776,133,1824,187,1872,233.3C1920,280,1968,320,2016,300C2064,280,2112,200,2160,173.3C2208,147,2256,173,2304,206.7C2352,240,2400,280,2448,306.7C2496,333,2544,347,2592,326.7C2640,307,2688,253,2736,193.3C2784,133,2832,67,2880,73.3C2928,80,2976,160,3024,166.7C3072,173,3120,107,3168,106.7C3216,107,3264,173,3312,220C3360,267,3408,293,3432,306.7L3456,320L3456,400L3432,400C3408,400,3360,400,3312,400C3264,400,3216,400,3168,400C3120,400,3072,400,3024,400C2976,400,2928,400,2880,400C2832,400,2784,400,2736,400C2688,400,2640,400,2592,400C2544,400,2496,400,2448,400C2400,400,2352,400,2304,400C2256,400,2208,400,2160,400C2112,400,2064,400,2016,400C1968,400,1920,400,1872,400C1824,400,1776,400,1728,400C1680,400,1632,400,1584,400C1536,400,1488,400,1440,400C1392,400,1344,400,1296,400C1248,400,1200,400,1152,400C1104,400,1056,400,1008,400C960,400,912,400,864,400C816,400,768,400,720,400C672,400,624,400,576,400C528,400,480,400,432,400C384,400,336,400,288,400C240,400,192,400,144,400C96,400,48,400,24,400L0,400Z"
+          d="M0,150L48,160C96,170,192,190,288,185C384,180,480,150,576,155C672,160,768,200,864,185C960,170,1056,100,1152,65C1248,30,1344,30,1440,65C1536,100,1632,170,1728,170C1824,170,1920,100,2016,95C2112,90,2208,150,2304,165C2400,180,2496,150,2592,115C2688,80,2784,40,2880,65C2976,90,3072,180,3168,210C3264,240,3360,210,3456,205C3552,200,3648,220,3744,200C3840,180,3936,120,4032,85C4128,50,4224,40,4320,45C4416,50,4512,70,4608,105C4704,140,4800,190,4896,205C4992,220,5088,200,5184,185C5280,170,5376,160,5472,165C5568,170,5664,190,5760,175C5856,160,5952,110,6048,80C6144,50,6240,40,6336,70C6432,100,6528,170,6624,190C6720,210,6816,180,6864,165L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"
         />
       </svg>
 
@@ -36,13 +56,45 @@ const LandingPage = () => {
           Processing a AR invoice with a payment applied to it.
         </p>
 
-        <Button
-          onClick={handleOpen}
-          appearance="primary"
-          className="login-button"
-        >
-          Login
-        </Button>
+        <div className="button-group">
+          {email ? (
+            <>
+              <Button
+                onClick={() => handleLogOut()}
+                appearance="primary"
+                className="login-button"
+              >
+                Logout
+              </Button>
+              <Link to={"/dashboard"}>
+                <Button
+                  sx={{
+                    background: "#aa0f6a",
+                    ml: 3,
+                    color: "white",
+                    height: 50,
+                    fontWeight: 700,
+                    fontSize: 20,
+                    "&:hover": {
+                      bgcolor: "#aa0f6a",
+                    },
+                  }}
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Button
+              onClick={handleOpen}
+              variant="contained"
+              appearance="primary"
+              className="login-button"
+            >
+              Login
+            </Button>
+          )}
+        </div>
       </div>
       <LoginModal open={open} backdrop={backdrop} handleClose={handleClose} />
     </div>

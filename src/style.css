@@ -9,9 +9,9 @@
   height: 93.4vh;
 }
 .logo {
-  text-align: center;
-  padding: 10px;
-  font-size: 30px;
+  text-align: left;
+  padding: 2px;
+  font-size: 20px;
 }
 .paylogo {
   color: #34c3ff;
@@ -62,11 +62,74 @@
   border-radius: 30px;
   width: 130px;
   height: 50px;
-  font-size: 25px;
-  font-weight: 600;
+  color: white !important;
+  background-color: #0f8dbf !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-right: 30px;
 }
 .flex {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.button-group {
+  display: flex;
+}
+
+.dashboard:hover {
+  background-color: #aa0f6a;
+  color: aliceblue;
+}
+.dashboard-header {
+  background-color: #000000;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.datagrid {
+  background-color: #000000 !important;
+}
+.action-bar {
+  background-color: #2b2b2b;
+}
+.rs-anim-fade {
+  color: white !important;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 10px;
+}
+.searchable {
+  margin: 10px;
+  width: 300px !important;
+}
+.left {
+  display: flex;
+  flex-direction: row;
+}
+.search-button {
+  width: 20%;
+  background-color: #003846 !important;
+  font-weight: 500;
+  font-size: 25px;
+}
+.search-button:hover {
+  background-color: #003846 !important;
+  color: white !important;
+}
+.data-grid {
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 10px;
+  max-width: 130rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
 }
