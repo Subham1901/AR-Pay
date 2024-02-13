@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 const LandingPage = () => {
   const [open, setOpen] = React.useState(false);
-  const [backdrop, setBackdrop] = React.useState("static");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const email = useDecodeToken();
@@ -96,7 +95,7 @@ const LandingPage = () => {
           )}
         </div>
       </div>
-      <LoginModal open={open} backdrop={backdrop} handleClose={handleClose} />
+      <LoginModal open={open} handleClose={handleClose} />
     </div>
   );
 };

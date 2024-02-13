@@ -22,7 +22,10 @@ import Layout from "./Content";
 import LoginModal from "./LoginModal";
 import { auth } from "../../firebase.config";
 import Brand from "./Brand";
-
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 const drawerWidth = 240;
 
 export default function NavBar() {
@@ -79,19 +82,19 @@ export default function NavBar() {
 
         <Divider />
         <List>
-          {/* {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
-
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("/dashboard")}>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
             <ListItemButton onClick={() => navigate("statistics")}>
+              <ListItemIcon>
+                <EqualizerIcon />
+              </ListItemIcon>
               <ListItemText>Statistics</ListItemText>
             </ListItemButton>
           </ListItem>
@@ -100,11 +103,21 @@ export default function NavBar() {
             <>
               <ListItem disablePadding>
                 <ListItemButton onClick={() => navigate("account")}>
+                  <ListItemIcon>
+                    <AccountBoxIcon />
+                  </ListItemIcon>
                   <ListItemText>Account</ListItemText>
                 </ListItemButton>
               </ListItem>
+              <Divider />
               <ListItem disablePadding>
-                <ListItemButton onClick={() => handleLogOut()}>
+                <ListItemButton
+                  sx={{ color: "#cd5c5c" }}
+                  onClick={() => handleLogOut()}
+                >
+                  <ListItemIcon>
+                    <PowerSettingsNewIcon />
+                  </ListItemIcon>
                   <ListItemText>Logout</ListItemText>
                 </ListItemButton>
               </ListItem>

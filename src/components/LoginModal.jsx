@@ -25,17 +25,7 @@ import {
 import { auth } from "../../firebase.config";
 import CloseIcon from "@mui/icons-material/Close";
 import { buttonStyle } from "../utils/util";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  borderRadius: "5px",
-  boxShadow: 24,
-  p: 4,
-};
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -75,7 +65,7 @@ export default function LoginModal({ open, handleClose }) {
         dispatch({ type: "LOAD_FALSE" });
       } catch (error) {
         dispatch({ type: "LOAD_FALSE" });
-        toast(error.message);
+        toast.error(error.message);
       }
     } else {
       try {
@@ -95,7 +85,7 @@ export default function LoginModal({ open, handleClose }) {
         dispatch({ type: "LOAD_FALSE" });
       } catch (error) {
         dispatch({ type: "LOAD_FALSE" });
-        toast(error.message);
+        toast.error(error.message);
       }
     }
   };
