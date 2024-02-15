@@ -51,7 +51,6 @@ export default function NavBar() {
   const {
     auth: { userAuth },
   } = useSelector((state) => state);
-  console.log(userAuth);
 
   return (
     <Box sx={{ display: "flex" }}>

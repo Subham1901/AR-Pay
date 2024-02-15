@@ -18,6 +18,7 @@ import Protected from "./components/Protected";
 import Account from "./pages/Account";
 import Statistics from "./pages/Statistics";
 import LoginModal from "./components/LoginModal";
+import { jwtDecode } from "jwt-decode";
 
 const App = () => {
   const load = useSelector((state) => state.action?.loading);

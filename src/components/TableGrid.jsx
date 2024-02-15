@@ -1,25 +1,65 @@
-import React from "react";
-import { columns, invoiceData } from "../utils/util";
+import React, { useEffect } from "react";
+import { columns } from "../utils/util";
 import AdvanceSearch from "./AdvanceSearch";
 import DataTable from "./DataTable";
+import { DataGrid } from "@mui/x-data-grid";
+import { Box, Button } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import PaymentIcon from "@mui/icons-material/Payment";
+const TableGrid = ({ invoices, init }) => {
+  const [selectedRows, setSelectedRows] = React.useState([]);
 
-const TableGrid = () => {
   return (
     <>
-      {/* <div className="advance-search">
-        <AdvanceSearch />
-      </div> */}
-
-      {/* <DataTable
-          theme="dark"
-          fixedHeader
-          selectableRows
-          pagination
-          paginationRowsPerPageOptions={[10]}
+      <Box
+        sx={{
+          mb: 2,
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          onClick={() => init()}
+          className="icons"
+          variant="outlined"
+          startIcon={<RefreshIcon />}
+        >
+          Refresh
+        </Button>
+        <Button
+          className="icons"
+          startIcon={<VisibilityIcon />}
+          variant="outlined"
+        >
+          Show
+        </Button>
+        <Button
+          className="icons"
+          startIcon={<PaymentIcon />}
+          variant="outlined"
+        >
+          Pay
+        </Button>
+      </Box>
+      {invoices && (
+        <DataGrid
+          getRowId={(row) => row.invoiceNumber}
+          rows={invoices}
           columns={columns}
-          data={invoiceData.invoices.data}
-        /> */}
-      <DataTable />
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 7 },
+            },
+          }}
+          onRowSelectionModelChange={(row) => {
+            setSelectedRows(row);
+          }}
+          checkboxSelection
+          rowSelectionModel={selectedRows}
+        />
+      )}
     </>
   );
 };

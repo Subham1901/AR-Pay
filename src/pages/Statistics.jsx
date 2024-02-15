@@ -10,25 +10,24 @@ import {
   Typography,
 } from "@mui/material";
 
-import { invoiceData } from "../utils/util";
 const Statistics = () => {
-  let uniqData = [];
-  const data = invoiceData.invoices.data.map((data) => data.contact.customer);
-  data
-    .filter((cus, index) => data.indexOf(cus) === index)
-    .forEach((data) => {
-      uniqData.push({ label: data, value: data });
-    });
+  // let uniqData = [];
+  // const data = invoiceData.invoices.data.map((data) => data.contact.customer);
+  // data
+  //   .filter((cus, index) => data.indexOf(cus) === index)
+  //   .forEach((data) => {
+  //     uniqData.push({ label: data, value: data });
+  //   });
 
-  const totalAmount = invoiceData?.invoices?.data?.reduce(
-    (acc, curr) => acc + curr?.amount,
-    0
-  );
-  console.log(totalAmount);
-  const formattedNumber = totalAmount.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+  // const totalAmount = invoiceData?.invoices?.data?.reduce(
+  //   (acc, curr) => acc + curr?.amount,
+  //   0
+  // );
+  // console.log(totalAmount);
+  // const formattedNumber = totalAmount.toLocaleString("en-US", {
+  //   style: "currency",
+  //   currency: "USD",
+  // });
   return (
     <>
       <Stack padding={5} direction={"row"}>
@@ -44,7 +43,7 @@ const Statistics = () => {
               Total AR Amount
             </Typography>
             <Typography fontSize={20} variant="body1" color="text.secondary">
-              {formattedNumber}
+              {18881}
             </Typography>
           </CardContent>
         </Card>
@@ -60,7 +59,7 @@ const Statistics = () => {
               Total Customers
             </Typography>
             <Typography fontSize={20} variant="body1" color="text.secondary">
-              {uniqData.length}
+              {1}
             </Typography>
           </CardContent>
         </Card>
@@ -76,7 +75,7 @@ const Statistics = () => {
               Total AR Items
             </Typography>
             <Typography fontSize={20} variant="body1" color="text.secondary">
-              {invoiceData?.invoices?.data.length}
+              {18}
             </Typography>
           </CardContent>
         </Card>

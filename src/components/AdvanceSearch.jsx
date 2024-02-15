@@ -1,21 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { buttonStyle, invoiceData } from "../utils/util";
-import { Box, Button, Input, TextField } from "@mui/material";
+import { buttonStyle, top100Films } from "../utils/util";
+import { Autocomplete, Box, Button, Input, TextField } from "@mui/material";
+import { useSelector } from "react-redux";
+import { getCustomers } from "../api";
+import { toast } from "react-toastify";
 
 const AdvanceSearch = () => {
-  let uniqData = [];
-  const data = invoiceData.invoices.data.map((data) => data.contact.customer);
-  data
-    .filter((cus, index) => data.indexOf(cus) === index)
-    .forEach((data) => {
-      uniqData.push({ label: data, value: data });
-    });
-
+  const [value, setValues] = useState(null);
   return (
     <Box
       sx={{
-        padding: 3,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -35,8 +30,20 @@ const AdvanceSearch = () => {
             m: 2,
           }}
         >
-          <TextField type="date" sx={{ m: 2 }} />
-          <TextField placeholder="Invcoice Number" sx={{ m: 2 }} />
+          <TextField
+            label="Invoice Date"
+            variant="outlined"
+            defaultValue={new Date().toISOString().substring(0, 10)}
+            color="primary"
+            type="date"
+            sx={{ m: 2, color: "wheat" }}
+          />
+          <TextField
+            label="Invoice Number"
+            variant="outlined"
+            placeholder="Invcoice Number"
+            sx={{ m: 2 }}
+          />
         </Box>
         <Box
           sx={{
@@ -45,8 +52,30 @@ const AdvanceSearch = () => {
             m: 2,
           }}
         >
-          <TextField sx={{ m: 2 }} placeholder="Invcoice Number" />
-          <TextField sx={{ m: 2 }} placeholder="Currency" />
+          <Autocomplete
+            sx={{ m: 2 }}
+            multiple
+            id="tags-outlined"
+            onOpen={async () => {
+              await getCustomers((err, data) => {
+                if (err) toast.error(err);
+                setValues(data?.customers);
+              });
+            }}
+            loading
+            options={value || []}
+            getOptionLabel={(option) => option}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField {...params} label="Customers" placeholder="Customer" />
+            )}
+          />
+          <TextField
+            label="Currency"
+            variant="outlined"
+            sx={{ m: 2 }}
+            placeholder="Currency"
+          />
         </Box>
       </Box>
       <Button variant="outlined">Search</Button>
