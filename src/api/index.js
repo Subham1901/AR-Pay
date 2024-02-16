@@ -22,3 +22,15 @@ export const getCustomers = async (cb) => {
     return cb("Something went wrong", null);
   }
 };
+
+export const getSummaryAR = async (cb) => {
+  try {
+    const { data } = await arPayService.get("/summary");
+    return cb(null, data);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};

@@ -136,3 +136,7 @@
 .icons:not(:last-child) {
   margin-right: 10px;
 }
+.header:not(:last-child) {
+  margin-right: 30px;
+  margin-bottom: 15px;
+}

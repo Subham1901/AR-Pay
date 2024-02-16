@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { columns } from "../utils/util";
 import AdvanceSearch from "./AdvanceSearch";
 import DataTable from "./DataTable";
@@ -7,8 +7,19 @@ import { Box, Button } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import PaymentIcon from "@mui/icons-material/Payment";
+import ShowItemDetails from "./ShowItemDetails";
 const TableGrid = ({ invoices, init }) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [disableShow, setDisableShow] = useState(true);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -32,6 +43,8 @@ const TableGrid = ({ invoices, init }) => {
           className="icons"
           startIcon={<VisibilityIcon />}
           variant="outlined"
+          onClick={() => handleClickOpen()}
+          disabled={selectedRows.length === 1 ? false : true}
         >
           Show
         </Button>
@@ -60,6 +73,12 @@ const TableGrid = ({ invoices, init }) => {
           rowSelectionModel={selectedRows}
         />
       )}
+
+      <ShowItemDetails
+        invoiceNumber={selectedRows[0]}
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   );
 };
