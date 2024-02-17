@@ -25,7 +25,7 @@ const Account = () => {
     <Container>
       <Stack direction={"row"}>
         <Stack
-          padding={5}
+          padding={2}
           direction={"column"}
           width={500}
           alignItems={"center"}
@@ -33,7 +33,14 @@ const Account = () => {
         >
           {currentUser &&
             currentUser.map((user) => (
-              <>
+              <Box
+                key={user?.email}
+                width={400}
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
                 <Avatar
                   src={user?.photoURL}
                   sx={{ width: 150, height: 150, fontSize: "70px", m: 4 }}
@@ -81,7 +88,7 @@ const Account = () => {
                 >
                   Edit
                 </Button>
-              </>
+              </Box>
             ))}
         </Stack>
         <Box>

@@ -18,6 +18,7 @@ export default function DataTable() {
     dispatch({ type: "LOADING_TRUE" });
     await getInvoices((err, data) => {
       if (err) {
+        toast.error(err);
         dispatch({ type: "ERROR", payload: err });
         dispatch({ type: "LOADING_FALSE" });
         return;
@@ -43,7 +44,11 @@ export default function DataTable() {
         ) : (
           <TableGrid
             init={init}
-            invoices={arPayService?.invoices?.invoices?.data}
+            invoices={
+              arPayService?.searchQuery
+                ? arPayService?.searchQuery
+                : arPayService?.invoices?.invoices?.data
+            }
           />
         )}
       </Box>

@@ -1,5 +1,11 @@
 export const serviceReducer = (
-  state = { invoices: null, summary: null, loading: false, error: null },
+  state = {
+    invoices: null,
+    summary: null,
+    loading: false,
+    error: null,
+    searchQuery: null,
+  },
   action
 ) => {
   switch (action.type) {
@@ -15,6 +21,10 @@ export const serviceReducer = (
       return { ...state, error: action.payload };
     case "CLEAR_ERROR":
       return { ...state, error: null };
+    case "GET_SEARCH_QUERY":
+      return { ...state, searchQuery: action.payload };
+    case "CLEAR_SEARCH_QUERY":
+      return { ...state, searchQuery: null };
     default:
       return { ...state };
   }

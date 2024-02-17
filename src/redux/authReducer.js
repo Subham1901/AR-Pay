@@ -8,11 +8,12 @@ export const authReducer = (
 ) => {
   switch (action.type) {
     case USER_SIGNUP:
+      console.log(action.payload);
       localStorage.setItem(
         "token",
         JSON.stringify({
           accessToken: action?.payload?.user?.accessToken,
-          expiresIn: action?.payload?._tokenResponse?.expiresIn,
+          expiresIn: action?.payload?.user?.stsTokenManager?.expirationTime,
         })
       );
       return { ...state, userAuth: action.payload };
@@ -21,7 +22,7 @@ export const authReducer = (
         "token",
         JSON.stringify({
           accessToken: action?.payload?.user?.accessToken,
-          expiresIn: action?.payload?._tokenResponse?.expiresIn,
+          expiresIn: action?.payload?.user?.stsTokenManager?.expirationTime,
         })
       );
       return { ...state, userAuth: action.payload };
@@ -31,7 +32,6 @@ export const authReducer = (
 
     case "AUTH_STATE_CHANGE":
       return { ...state, userAuth: action.payload };
-
     default:
       return state;
   }

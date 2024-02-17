@@ -18,8 +18,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
-export default function ShowItemDetails({ invoiceNumber, open, handleClose }) {
+function ShowItemDetails({ invoiceNumber, open, handleClose }) {
   const invoices = useSelector(
     (state) => state?.service?.invoices?.invoices?.data
   );
@@ -43,7 +42,7 @@ export default function ShowItemDetails({ invoiceNumber, open, handleClose }) {
     color: "gray",
     fontWeight: 700,
   };
-  console.log(filterInvoice);
+
   return (
     <>
       <Dialog fullScreen open={open} onClose={handleClose}>
@@ -235,3 +234,5 @@ export default function ShowItemDetails({ invoiceNumber, open, handleClose }) {
     </>
   );
 }
+
+export default React.memo(ShowItemDetails);

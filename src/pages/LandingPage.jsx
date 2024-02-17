@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import wave from "../assets/wave.png";
 import Brand from "../components/Brand";
 import LoginModal from "../components/LoginModal";
@@ -11,6 +11,9 @@ import { auth } from "../../firebase.config";
 import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 const LandingPage = () => {
+  const [expireTime] = useState(
+    JSON.parse(localStorage.getItem("token"))?.expiresIn
+  );
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -26,6 +29,18 @@ const LandingPage = () => {
       toast(error.message);
     }
   };
+
+  const handleTokenExpirtaion = () => {
+    if (expireTime) {
+      if (expireTime < new Date().getTime()) {
+        handleLogOut();
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleTokenExpirtaion();
+  }, []);
 
   return (
     <div className="landingpage">
