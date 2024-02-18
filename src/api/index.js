@@ -68,3 +68,41 @@ export const doPayment = async (query, cb) => {
     return cb("Something went wrong", null);
   }
 };
+
+export const getSessionInfo = async (query, cb) => {
+  try {
+    const { data } = await arPayService.get(
+      "/sessioninfo",
+
+      {
+        params: query,
+        headers: useAPIHeaders(),
+      }
+    );
+    return cb(null, data);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};
+
+export const updatePaymentStatus = async (query, cb) => {
+  try {
+    const response = await arPayService.get(
+      "/updatestatus",
+
+      {
+        params: query,
+        headers: useAPIHeaders(),
+      }
+    );
+    return cb(null, response.data, response.status);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};

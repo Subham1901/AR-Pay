@@ -79,6 +79,7 @@ const TableGrid = ({ invoices, init }) => {
           startIcon={<PaymentIcon />}
           variant="outlined"
           onClick={() => makePayment()}
+          disabled={selectedRows.length === 1 ? false : true}
         >
           Pay
         </Button>

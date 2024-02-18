@@ -57,7 +57,7 @@ export const browserRouter = createBrowserRouter([
         element: <Account />,
       },
       {
-        path: "paid",
+        path: "success",
         element: <PaymentSuccess />,
       },
       {

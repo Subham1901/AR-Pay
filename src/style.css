@@ -151,3 +151,12 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.footer {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #000000;
+}
