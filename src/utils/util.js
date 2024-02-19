@@ -1,13 +1,13 @@
 import { createTheme } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import clsx from "clsx";
+import moment from "moment";
 // import createTheme from "@mui/material/styles/createTheme";
-export const useDecodeToken = () => {
-  let token = JSON.parse(localStorage.getItem("token"))?.accessToken;
-
+export const useDecodeToken = (token) => {
   if (token) {
-    let { email, uid } = jwtDecode(token);
-    return { email, uid };
+    let { email, uid, exp } = jwtDecode(token);
+    return { email, uid, exp };
   }
 };
 export const summaryItems = [
@@ -103,4 +103,39 @@ export const columns = [
     valueGetter: (params) => params?.row?.contact?.phone,
     width: 140,
   },
+];
+
+export const paymentHistoryColumns = [
+  { headerName: "Invoice Number", field: "pk_invoice_number", width: 120 },
+  { headerName: "Currency", field: "currency", width: 60 },
+  {
+    headerName: "Amount",
+    field: "amount",
+    width: 80,
+  },
+  {
+    headerName: "Status",
+    field: "status",
+    width: 120,
+    cellClassName: (params) => {
+      if (params.value === "complete") {
+        return clsx("cell-green");
+      } else {
+        return clsx("cell-red");
+      }
+    },
+  },
+  { headerName: "Payment Status", field: "payment_status", width: 120 },
+  { headerName: "Payment Method", field: "payment_method", width: 140 },
+  {
+    headerName: "Created Date",
+    field: "created_date",
+    width: 120,
+    valueGetter: (params) => moment(params.created_date).format("YYYY-MM-DD"),
+  },
+  { headerName: "Created Time", field: "created_time", width: 120 },
+  { headerName: "Payment Intent", field: "payment_intent", width: 180 },
+  { headerName: "Session ID", field: "session_id", width: 300 },
+  { headerName: "Customer", field: "customer", width: 80 },
+  { headerName: "Email", field: "email", width: 100 },
 ];

@@ -47,7 +47,7 @@ export default function DataTable() {
             invoices={
               arPayService?.searchQuery
                 ? arPayService?.searchQuery
-                : arPayService?.invoices?.invoices?.data
+                : arPayService?.invoices
             }
           />
         )}

@@ -27,6 +27,9 @@ const PaymentSuccess = () => {
       { invoice: query.get("invoice") },
       (err, data, status) => {
         if (err) toast.error(err);
+        if (status === 200) {
+          toast.success("Payment details updated");
+        }
       }
     );
   };

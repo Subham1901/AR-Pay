@@ -1,10 +1,11 @@
 import { useAPIHeaders } from "../hooks/useAPIHeader";
 import { arPayService } from "./service";
-const headers = useAPIHeaders();
 
 export const getInvoices = async (cb) => {
   try {
-    const { data } = await arPayService.get("/invoices", { headers });
+    const { data } = await arPayService.get("/invoices", {
+      headers: useAPIHeaders(),
+    });
     return cb(null, data);
   } catch (error) {
     if (error?.response?.data?.message) {
@@ -99,6 +100,20 @@ export const updatePaymentStatus = async (query, cb) => {
       }
     );
     return cb(null, response.data, response.status);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};
+
+export const getPaymentHistory = async (cb) => {
+  try {
+    const { data } = await arPayService.get("/paymenthistory", {
+      headers: useAPIHeaders(),
+    });
+    return cb(null, data);
   } catch (error) {
     if (error?.response?.data?.message) {
       return cb(error?.response?.data?.message);

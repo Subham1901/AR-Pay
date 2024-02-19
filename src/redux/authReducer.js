@@ -1,4 +1,6 @@
+import { jwtDecode } from "jwt-decode";
 import { USER_LOGIN, USER_LOGOUT, USER_SIGNUP } from "./actions";
+import { useDecodeToken } from "../utils/util";
 
 export const authReducer = (
   state = {
@@ -6,14 +8,14 @@ export const authReducer = (
   },
   action
 ) => {
+  const token = useDecodeToken(action?.payload?.user?.accessToken);
   switch (action.type) {
     case USER_SIGNUP:
-      console.log(action.payload);
       localStorage.setItem(
         "token",
         JSON.stringify({
           accessToken: action?.payload?.user?.accessToken,
-          expiresIn: action?.payload?.user?.stsTokenManager?.expirationTime,
+          expiresIn: token?.exp,
         })
       );
       return { ...state, userAuth: action.payload };
@@ -22,7 +24,7 @@ export const authReducer = (
         "token",
         JSON.stringify({
           accessToken: action?.payload?.user?.accessToken,
-          expiresIn: action?.payload?.user?.stsTokenManager?.expirationTime,
+          expiresIn: token?.exp,
         })
       );
       return { ...state, userAuth: action.payload };

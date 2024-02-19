@@ -11,19 +11,42 @@ import { USER_LOGOUT } from "../redux/actions";
 
 const DashBoard = () => {
   const dispatch = useDispatch();
-  const data = useDecodeToken();
+  const tokenDetails = useDecodeToken(
+    JSON.parse(localStorage.getItem("token"))?.accessToken
+  );
   const navigate = useNavigate();
+
+  //auto logout handle
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: USER_LOGOUT });
+      navigate("/");
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+  const handleTokenExpirtaion = () => {
+    if (tokenDetails?.exp) {
+      if (tokenDetails?.exp * 1000 <= Date.now()) {
+        handleLogOut();
+      }
+    }
+  };
+
   const authState = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        handleTokenExpirtaion();
         dispatch({ type: "AUTH_STATE_CHANGE", payload: auth?.currentUser });
       } else {
-        await signOut(auth);
+        handleLogOut();
         dispatch({ type: USER_LOGOUT });
         navigate("/");
       }
     });
   };
+
   useEffect(() => {
     authState();
   }, []);

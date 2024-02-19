@@ -21,6 +21,7 @@ import LoginModal from "./components/LoginModal";
 import { jwtDecode } from "jwt-decode";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentError from "./pages/PaymentError";
+import PaymentHistory from "./pages/PaymentHistory";
 
 const App = () => {
   const load = useSelector((state) => state.action?.loading);
@@ -63,6 +64,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: "paymenterror",
         element: <PaymentError />,
+      },
+      {
+        path: "paymenthistory",
+        element: <PaymentHistory />,
       },
     ],
   },

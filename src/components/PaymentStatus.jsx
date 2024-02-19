@@ -3,6 +3,7 @@ import React from "react";
 import success from "../assets/paid.webp";
 import error from "../assets/Error.webp";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 const PaymentStatus = ({ open, handleClose, status, sessionInfo }) => {
   const style = {
     position: "absolute",
@@ -16,7 +17,7 @@ const PaymentStatus = ({ open, handleClose, status, sessionInfo }) => {
     border: "none",
     outline: "none",
   };
-
+  const navigate = useNavigate();
   return (
     <Modal
       open={open}
@@ -154,6 +155,7 @@ const PaymentStatus = ({ open, handleClose, status, sessionInfo }) => {
           <Button
             variant="contained"
             color={status === "success" ? "success" : "error"}
+            onClick={() => navigate("/dashboard/paymenthistory")}
           >
             Payment History
           </Button>

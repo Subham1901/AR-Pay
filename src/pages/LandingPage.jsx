@@ -11,13 +11,12 @@ import { auth } from "../../firebase.config";
 import { useDispatch } from "react-redux";
 import { Box, Button, Typography } from "@mui/material";
 const LandingPage = () => {
-  const [expireTime] = useState(
-    JSON.parse(localStorage.getItem("token"))?.expiresIn
-  );
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const email = useDecodeToken();
+  const tokenDetails = useDecodeToken(
+    JSON.parse(localStorage.getItem("token"))?.accessToken
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogOut = async () => {
@@ -31,8 +30,8 @@ const LandingPage = () => {
   };
 
   const handleTokenExpirtaion = () => {
-    if (expireTime) {
-      if (expireTime < new Date().getTime()) {
+    if (tokenDetails?.exp) {
+      if (tokenDetails?.exp * 1000 <= Date.now()) {
         handleLogOut();
       }
     }
@@ -72,7 +71,7 @@ const LandingPage = () => {
           </p>
 
           <div className="button-group">
-            {email ? (
+            {tokenDetails ? (
               <>
                 <Button
                   onClick={() => handleLogOut()}

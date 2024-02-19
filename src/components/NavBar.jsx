@@ -26,6 +26,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import PaidIcon from "@mui/icons-material/Paid";
 const drawerWidth = 240;
 
 export default function NavBar() {
@@ -95,6 +96,15 @@ export default function NavBar() {
                 <EqualizerIcon />
               </ListItemIcon>
               <ListItemText>Statistics</ListItemText>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("paymenthistory")}>
+              <ListItemIcon>
+                <PaidIcon />
+              </ListItemIcon>
+              <ListItemText>Payment History</ListItemText>
             </ListItemButton>
           </ListItem>
 
