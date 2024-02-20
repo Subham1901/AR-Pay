@@ -12,8 +12,8 @@ export const useDecodeToken = (token) => {
 };
 export const summaryItems = [
   { header: "Total Amount", value: "totalAmount" },
-  { header: "Total Customers", value: "totalARItems" },
-  { header: "Total AR Items", value: "totalCustomers" },
+  { header: "Total Customers", value: "totalCustomers" },
+  { header: "Total AR Items", value: "totalARItems" },
   { header: "Total Paid AR Items", value: "totalPaidData" },
   { header: "Due Date Passed Items", value: "totalDueInvoices" },
   { header: "Upcoming Due Date Items", value: "comingDueDateInvoices" },
@@ -111,7 +111,8 @@ export const paymentHistoryColumns = [
   {
     headerName: "Amount",
     field: "amount",
-    width: 80,
+    width: 100,
+    valueGetter: (params) => formatValue(params?.row?.amount),
   },
   {
     headerName: "Status",
@@ -139,3 +140,10 @@ export const paymentHistoryColumns = [
   { headerName: "Customer", field: "customer", width: 80 },
   { headerName: "Email", field: "email", width: 100 },
 ];
+
+const formatValue = (amount) => {
+  return amount.toLocaleString("en-US", {
+    style: "currency",
+    currency: "usd",
+  });
+};

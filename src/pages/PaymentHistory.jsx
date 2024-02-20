@@ -10,7 +10,7 @@ import { paymentHistoryColumns } from "../utils/util";
 import { getPaymentHistory } from "../api";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function PaymentHistory() {
   const [paymentHistoryData, setPaymentHistoryData] = React.useState(null);
@@ -29,7 +29,7 @@ export default function PaymentHistory() {
   return (
     <Box
       sx={{
-        height: 800,
+        height: 650,
         width: "100%",
 
         "& .cell-green": {
@@ -44,6 +44,14 @@ export default function PaymentHistory() {
         },
       }}
     >
+      <Typography
+        fontSize={30}
+        textAlign={"center"}
+        fontWeight={"600"}
+        color={"#34c3ff"}
+      >
+        Payment History
+      </Typography>
       {paymentHistoryData && (
         <DataGrid
           getRowId={(row) => row.session_id}
@@ -51,7 +59,7 @@ export default function PaymentHistory() {
           columns={paymentHistoryColumns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 7 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
         />

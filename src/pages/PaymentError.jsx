@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PaymentStatus from "../components/PaymentStatus";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getSessionInfo } from "../api";
+import { expirePaymentSession, getSessionInfo } from "../api";
 
 const PaymentError = () => {
   const [query] = useSearchParams();
@@ -21,11 +21,23 @@ const PaymentError = () => {
       setSessionInfo(data);
     });
   };
+  const expireSession = async () => {
+    await expirePaymentSession(
+      { invoice: query.get("invoice") },
+      (err, data) => {
+        if (err) toast.error(err);
+        else {
+          toast.info(data?.message || "Session expired");
+        }
+      }
+    );
+  };
   React.useEffect(() => {
     handleOpen();
   }, []);
   React.useEffect(() => {
     retriveData();
+    expireSession();
   }, []);
 
   return (

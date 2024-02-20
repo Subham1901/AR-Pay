@@ -19,9 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 function ShowItemDetails({ invoiceNumber, open, handleClose }) {
-  const invoices = useSelector(
-    (state) => state?.service?.invoices?.invoices?.data
-  );
+  const invoices = useSelector((state) => state?.service?.invoices);
 
   const filterInvoice =
     invoices &&

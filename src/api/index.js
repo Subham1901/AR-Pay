@@ -121,3 +121,48 @@ export const getPaymentHistory = async (cb) => {
     return cb("Something went wrong", null);
   }
 };
+
+export const getPaymentChartData = async (cb) => {
+  try {
+    const { data } = await arPayService.get("/paidchart", {
+      headers: useAPIHeaders(),
+    });
+    return cb(null, data);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};
+
+export const getInvoiceChartData = async (cb) => {
+  try {
+    const { data } = await arPayService.get("/invoicechart", {
+      headers: useAPIHeaders(),
+    });
+    console.log(data);
+    return cb(null, data);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};
+
+export const expirePaymentSession = async (query, cb) => {
+  try {
+    const { data } = await arPayService.get("/expiresession", {
+      params: query,
+      headers: useAPIHeaders(),
+    });
+    console.log(data);
+    return cb(null, data);
+  } catch (error) {
+    if (error?.response?.data?.message) {
+      return cb(error?.response?.data?.message);
+    }
+    return cb("Something went wrong", null);
+  }
+};
