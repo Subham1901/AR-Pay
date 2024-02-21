@@ -10,6 +10,12 @@ export const useDecodeToken = (token) => {
     return { email, uid, exp };
   }
 };
+export const paymentStatusItems = [
+  "Amount:",
+  "Payment Method:",
+  "Email:",
+  "Date:",
+];
 export const summaryItems = [
   { header: "Total Amount", value: "totalAmount" },
   { header: "Total Customers", value: "totalCustomers" },

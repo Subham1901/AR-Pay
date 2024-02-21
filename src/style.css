@@ -178,3 +178,14 @@ input[type="number"] {
 .payment-chart {
   width: 600px !important;
 }
+.arimage {
+  width: 500px;
+  height: 100px;
+  object-fit: cover;
+}
+.flow {
+  height: 100px;
+}
+.login-box {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

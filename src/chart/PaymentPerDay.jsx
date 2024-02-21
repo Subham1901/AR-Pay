@@ -20,8 +20,8 @@ ChartJS.register(
   Legend
 );
 const PaymentPerDay = ({ chartData }) => {
-  const paymentSuccessCount = chartData.filter;
-  const labels = chartData.map((data) => data?.created_date);
+  const dates = chartData.map((data) => data?.created_date);
+  const labels = dates.filter((data, index) => dates.indexOf(data) === index);
   const options = {
     responsive: true,
     maintainAspectRatio: false,

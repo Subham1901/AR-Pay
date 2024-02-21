@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Content";
-import LoginModal from "./LoginModal";
 import { auth } from "../../firebase.config";
 import Brand from "./Brand";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -27,16 +26,10 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import PaidIcon from "@mui/icons-material/Paid";
+import InfoIcon from "@mui/icons-material/Info";
 const drawerWidth = 240;
 
 export default function NavBar() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [expand, setExpand] = React.useState(true);
-  const [token] = React.useState(
-    JSON.parse(localStorage.getItem("token"))?.accessToken
-  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogOut = async () => {
@@ -48,10 +41,6 @@ export default function NavBar() {
       toast(error.message);
     }
   };
-
-  const {
-    auth: { userAuth },
-  } = useSelector((state) => state);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -107,54 +96,37 @@ export default function NavBar() {
               <ListItemText>Payment History</ListItemText>
             </ListItemButton>
           </ListItem>
-
-          {userAuth ? (
-            <>
-              <ListItem disablePadding>
-                <ListItemButton onClick={() => navigate("account")}>
-                  <ListItemIcon>
-                    <AccountBoxIcon />
-                  </ListItemIcon>
-                  <ListItemText>Account</ListItemText>
-                </ListItemButton>
-              </ListItem>
-              <Divider />
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{ color: "#cd5c5c" }}
-                  onClick={() => handleLogOut()}
-                >
-                  <ListItemIcon>
-                    <PowerSettingsNewIcon />
-                  </ListItemIcon>
-                  <ListItemText>Logout</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </>
-          ) : (
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleOpen}>
-                <ListItemText>Login/Signup</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          )}
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("about")}>
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText>About</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("account")}>
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText>Account</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem disablePadding>
+            <ListItemButton
+              sx={{ color: "#cd5c5c" }}
+              onClick={() => handleLogOut()}
+            >
+              <ListItemIcon>
+                <PowerSettingsNewIcon />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItemButton>
+          </ListItem>
         </List>
-        {/* <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       <Layout />
-      <LoginModal open={open} handleClose={handleClose} />
     </Box>
   );
 }

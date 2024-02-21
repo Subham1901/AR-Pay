@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import wave from "../assets/wave.png";
-import Brand from "../components/Brand";
-import LoginModal from "../components/LoginModal";
 import { useDecodeToken } from "../utils/util";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
@@ -9,11 +6,20 @@ import { USER_LOGOUT } from "../redux/actions";
 import { toast } from "react-toastify";
 import { auth } from "../../firebase.config";
 import { useDispatch } from "react-redux";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import gateway from "../assets/gateway.webp";
+import invoice from "../assets/invoice.png";
+import payment from "../assets/payment.png";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LoginBox from "../components/LoginBox";
 const LandingPage = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const tokenDetails = useDecodeToken(
     JSON.parse(localStorage.getItem("token"))?.accessToken
   );
@@ -47,28 +53,99 @@ const LandingPage = () => {
         <svg
           id="wave"
           style={{ transform: "rotate(180deg)", transition: "0.3s" }}
-          viewBox="0 0 1440 300"
+          viewBox="0 0 1440 330"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
             <linearGradient id="sw-gradient-0" x1={0} x2={0} y1={1} y2={0}>
-              <stop stopColor="rgba(30.391, 18.19, 66.347, 1)" offset="0%" />
-              <stop stopColor="rgba(97.978, 43.94, 111.883, 1)" offset="100%" />
+              <stop stopColor="rgba(39.214, 62.809, 146.034, 1)" offset="0%" />
+              <stop stopColor="rgba(28.163, 247.316, 255, 1)" offset="100%" />
             </linearGradient>
           </defs>
           <path
             style={{ transform: "translate(0, 0px)", opacity: 1 }}
             fill="url(#sw-gradient-0)"
-            d="M0,150L48,160C96,170,192,190,288,185C384,180,480,150,576,155C672,160,768,200,864,185C960,170,1056,100,1152,65C1248,30,1344,30,1440,65C1536,100,1632,170,1728,170C1824,170,1920,100,2016,95C2112,90,2208,150,2304,165C2400,180,2496,150,2592,115C2688,80,2784,40,2880,65C2976,90,3072,180,3168,210C3264,240,3360,210,3456,205C3552,200,3648,220,3744,200C3840,180,3936,120,4032,85C4128,50,4224,40,4320,45C4416,50,4512,70,4608,105C4704,140,4800,190,4896,205C4992,220,5088,200,5184,185C5280,170,5376,160,5472,165C5568,170,5664,190,5760,175C5856,160,5952,110,6048,80C6144,50,6240,40,6336,70C6432,100,6528,170,6624,190C6720,210,6816,180,6864,165L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"
+            d="M0,198L26.7,209C53.3,220,107,242,160,247.5C213.3,253,267,242,320,225.5C373.3,209,427,187,480,165C533.3,143,587,121,640,110C693.3,99,747,99,800,110C853.3,121,907,143,960,165C1013.3,187,1067,209,1120,203.5C1173.3,198,1227,165,1280,159.5C1333.3,154,1387,176,1440,203.5C1493.3,231,1547,264,1600,264C1653.3,264,1707,231,1760,187C1813.3,143,1867,88,1920,88C1973.3,88,2027,143,2080,176C2133.3,209,2187,220,2240,231C2293.3,242,2347,253,2400,214.5C2453.3,176,2507,88,2560,93.5C2613.3,99,2667,198,2720,220C2773.3,242,2827,187,2880,165C2933.3,143,2987,154,3040,159.5C3093.3,165,3147,165,3200,159.5C3253.3,154,3307,143,3360,132C3413.3,121,3467,110,3520,104.5C3573.3,99,3627,99,3680,93.5C3733.3,88,3787,77,3813,71.5L3840,66L3840,330L3813.3,330C3786.7,330,3733,330,3680,330C3626.7,330,3573,330,3520,330C3466.7,330,3413,330,3360,330C3306.7,330,3253,330,3200,330C3146.7,330,3093,330,3040,330C2986.7,330,2933,330,2880,330C2826.7,330,2773,330,2720,330C2666.7,330,2613,330,2560,330C2506.7,330,2453,330,2400,330C2346.7,330,2293,330,2240,330C2186.7,330,2133,330,2080,330C2026.7,330,1973,330,1920,330C1866.7,330,1813,330,1760,330C1706.7,330,1653,330,1600,330C1546.7,330,1493,330,1440,330C1386.7,330,1333,330,1280,330C1226.7,330,1173,330,1120,330C1066.7,330,1013,330,960,330C906.7,330,853,330,800,330C746.7,330,693,330,640,330C586.7,330,533,330,480,330C426.7,330,373,330,320,330C266.7,330,213,330,160,330C106.7,330,53,330,27,330L0,330Z"
           />
         </svg>
 
-        <div className="flex">
-          <h1 className="landing-logo">AR PAY</h1>
-          <p className="quote">
-            Processing a AR invoice with a payment applied to it.
-          </p>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            display={"flex"}
+            justifyContent={"flex-start"}
+            alignItems={"flex-start"}
+            flexDirection={"column"}
+          >
+            <Typography
+              color={"black"}
+              fontSize={70}
+              fontWeight={900}
+              sx={{ transform: "scaleY(1.2)" }}
+            >
+              Accounts
+            </Typography>
+            <Typography
+              color={"black"}
+              fontSize={70}
+              fontWeight={900}
+              sx={{ transform: "scaleY(1.2)" }}
+            >
+              Receivable
+            </Typography>
+
+            <Box sx={{ display: "flex" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mr: 2,
+                }}
+              >
+                <img className="flow" src={payment} />
+                <Typography fontSize={17} fontWeight={600} color={"black"}>
+                  AR Items
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mr: 2,
+                }}
+              >
+                <img className="flow" src={gateway} />
+                <Typography fontSize={17} fontWeight={600} color={"black"}>
+                  Payment Gateway
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mr: 2,
+                }}
+              >
+                <img className="flow" src={invoice} />
+                <Typography fontSize={17} fontWeight={600} color={"black"}>
+                  Invoice
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
 
           <div className="button-group">
             {tokenDetails ? (
@@ -99,24 +176,45 @@ const LandingPage = () => {
                 </Link>
               </>
             ) : (
-              <Button
-                onClick={handleOpen}
-                variant="contained"
-                appearance="primary"
-                className="login-button"
-              >
-                Login
-              </Button>
+              <LoginBox />
             )}
           </div>
-        </div>
-        <LoginModal open={open} handleClose={handleClose} />
+        </Box>
       </div>
       <Box className="footer">
-        <Box className="footer-container">
-          <Typography variant="caption" fontWeight={"600"} fontSize={18}>
-            Build By Subham
+        <Box
+          className="footer-container"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            variant="caption"
+            color={"gray"}
+            fontWeight={"600"}
+            fontSize={18}
+          >
+            Build By Subham{" "}
           </Typography>
+          <IconButton
+            onClick={() =>
+              window.open("https://github.com/subham1901", "_blank")
+            }
+            sx={{
+              bgcolor: "gray",
+              height: 30,
+              width: 30,
+              p: 0,
+              ml: 2,
+              "&:hover": {
+                bgcolor: "black",
+              },
+            }}
+          >
+            <GitHubIcon />
+          </IconButton>
         </Box>
       </Box>
     </>

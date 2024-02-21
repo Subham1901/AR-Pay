@@ -49,7 +49,6 @@ const Statistics = () => {
   useEffect(() => {
     init();
   }, [dispatch]);
-  console.log(yearWiseInvoiceData);
   return (
     <>
       <Stack padding={5} direction={"row"}>

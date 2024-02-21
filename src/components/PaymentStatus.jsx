@@ -4,6 +4,7 @@ import success from "../assets/paid.webp";
 import error from "../assets/Error.webp";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { paymentStatusItems } from "../utils/util";
 const PaymentStatus = ({ open, handleClose, status, sessionInfo }) => {
   const style = {
     position: "absolute",
@@ -72,38 +73,16 @@ const PaymentStatus = ({ open, handleClose, status, sessionInfo }) => {
             alignItems={"start"}
             justifyContent={"flex-start"}
           >
-            <Typography
-              textAlign={"center"}
-              id="modal-modal-title"
-              variant="caption"
-              fontSize={15}
-            >
-              Amount:
-            </Typography>
-            <Typography
-              textAlign={"center"}
-              id="modal-modal-title"
-              variant="caption"
-              fontSize={15}
-            >
-              Payment Method:
-            </Typography>
-            <Typography
-              textAlign={"center"}
-              id="modal-modal-title"
-              variant="caption"
-              fontSize={15}
-            >
-              Email:
-            </Typography>
-            <Typography
-              textAlign={"center"}
-              id="modal-modal-title"
-              variant="caption"
-              fontSize={15}
-            >
-              Date:
-            </Typography>
+            {paymentStatusItems.map((data) => (
+              <Typography
+                textAlign={"center"}
+                id="modal-modal-title"
+                variant="caption"
+                fontSize={15}
+              >
+                {data}
+              </Typography>
+            ))}
           </Box>
 
           <Box
