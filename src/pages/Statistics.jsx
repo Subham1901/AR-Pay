@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { getInvoiceChartData, getPaymentChartData, getSummaryAR } from "../api";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
