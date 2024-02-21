@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import Summary from "../components/Summary";
 import YearWiseInvoices from "../chart/YearWiseInvoices";
 import PaymentPerDay from "../chart/PaymentPerDay";
+import ChartLoader from "../components/ChartLoader";
 
 const Statistics = () => {
   const [yearWiseInvoiceData, setYearWiseInvoiceData] = useState(null);
@@ -55,17 +56,23 @@ const Statistics = () => {
         <Summary />
       </Stack>
 
-      <div className="charts">
-        {" "}
-        <div className="invoice-chart">
-          {yearWiseInvoiceData && (
-            <YearWiseInvoices chartData={yearWiseInvoiceData} />
-          )}
+      {yearWiseInvoiceData && paymentPerDayData ? (
+        <div className="charts">
+          {" "}
+          <div className="invoice-chart">
+            {yearWiseInvoiceData && (
+              <YearWiseInvoices chartData={yearWiseInvoiceData} />
+            )}
+          </div>
+          <div className="payment-chart">
+            {paymentPerDayData && (
+              <PaymentPerDay chartData={paymentPerDayData} />
+            )}
+          </div>
         </div>
-        <div className="payment-chart">
-          {paymentPerDayData && <PaymentPerDay chartData={paymentPerDayData} />}
-        </div>
-      </div>
+      ) : (
+        <ChartLoader />
+      )}
     </>
   );
 };

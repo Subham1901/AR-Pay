@@ -11,6 +11,7 @@ import { getPaymentHistory } from "../api";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
+import TableSkeleton from "../components/TableSkeleton";
 
 export default function PaymentHistory() {
   const [paymentHistoryData, setPaymentHistoryData] = React.useState(null);
@@ -52,7 +53,7 @@ export default function PaymentHistory() {
       >
         Payment History
       </Typography>
-      {paymentHistoryData && (
+      {paymentHistoryData ? (
         <DataGrid
           getRowId={(row) => row.session_id}
           rows={paymentHistoryData}
@@ -63,6 +64,8 @@ export default function PaymentHistory() {
             },
           }}
         />
+      ) : (
+        <TableSkeleton />
       )}
     </Box>
   );
