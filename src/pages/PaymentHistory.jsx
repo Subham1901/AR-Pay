@@ -31,7 +31,6 @@ export default function PaymentHistory() {
     <Box
       sx={{
         height: 650,
-        width: "100%",
 
         "& .cell-green": {
           backgroundColor: "rgb(0, 163, 108)",
