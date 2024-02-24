@@ -138,7 +138,8 @@ export const paymentHistoryColumns = [
     headerName: "Created Date",
     field: "created_date",
     width: 120,
-    valueGetter: (params) => moment(params.created_date).format("YYYY-MM-DD"),
+    valueGetter: (params) =>
+      moment(params?.row?.created_date).format("YYYY-MM-DD"),
   },
   { headerName: "Created Time", field: "created_time", width: 120 },
   { headerName: "Payment Intent", field: "payment_intent", width: 180 },
